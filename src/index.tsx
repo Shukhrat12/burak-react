@@ -7,7 +7,7 @@ import reportWebVitals from "./reportWebVitals";
 import "./css/index.css";
 import { ThemeProvider } from "@emotion/react";
 import { CssBaseline } from "@mui/material";
-import theme from "./theme";
+import theme from "./app/MaterialTheme";
 
 const container = document.getElementById("root")!;
 const root = createRoot(container);
