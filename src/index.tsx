@@ -8,6 +8,7 @@ import "./css/index.css";
 import { ThemeProvider } from "@emotion/react";
 import { CssBaseline } from "@mui/material";
 import theme from "./app/MaterialTheme";
+import { BrowserRouter as Router } from "react-router-dom";
 
 const container = document.getElementById("root")!;
 const root = createRoot(container);
@@ -17,7 +18,7 @@ root.render(
     <Provider store={store}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <App />
+        <Router><App /></Router>
       </ThemeProvider>
     </Provider>
   </React.StrictMode>
