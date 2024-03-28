@@ -2,8 +2,11 @@ import React from "react";
 import "../css/app.css";
 import { Box, Button, Container, Stack, Typography } from "@mui/material";
 import { Link, Route, Switch } from "react-router-dom";
-import About from "./screens/About";
-import Users from "./screens/Users";
+import ProductsPage from "./screens/productsPage";
+import OrdersPage from "./screens/ordersPage";
+import UserPage from "./screens/userPage";
+import HomePage from "./screens/homePage";
+import HelpPage from "./screens/helpPage/helpPage";
 
 function App() {
   return (
@@ -14,31 +17,39 @@ function App() {
           <Link to="/">Home</Link>
         </li>
         <li>
-          <Link to="/about">About</Link>
+          <Link to="/products">Products</Link>
+        </li>
+        <li>
+          <Link to="/orders">Orders</Link>
         </li>
         <li>
           <Link to="/users">Users</Link>
+        </li>
+        <li>
+          <Link to="/help">Help</Link>
         </li>
       </ul>
     </nav>
 
     <Switch>
-      <Route path="/about">
-        <About />
+      <Route path="/products">
+        <ProductsPage />
+      </Route>
+      <Route path="/orders">
+        <OrdersPage />
       </Route>
       <Route path="/users">
-        <Users />
+        <UserPage />
+      </Route>
+      <Route path="/help">
+        <HelpPage />
       </Route>
       <Route path="/">
-        <Home />
+        <HomePage />
       </Route>
     </Switch>
   </div>
   );
-}
-
-function Home() {
-  return <h2>Home</h2>;
 }
 
 export default App;
