@@ -1,36 +1,21 @@
 import React from "react";
 import "../css/app.css";
 import { Box, Button, Container, Stack, Typography } from "@mui/material";
-import { Link, Route, Switch } from "react-router-dom";
+import { Link, Route, Switch, useLocation } from "react-router-dom";
 import ProductsPage from "./screens/productsPage";
 import OrdersPage from "./screens/ordersPage";
 import UserPage from "./screens/userPage";
 import HomePage from "./screens/homePage";
 import HelpPage from "./screens/helpPage/helpPage";
+import { HomeHeader } from "./components/headers/HomeHeader";
+import { CommonHeader } from "./components/headers/CommonHeader";
+import { Footer } from "./components/footer/index";
 
 function App() {
+  const location = useLocation();
   return (
-    <div>
-    <nav>
-      <ul>
-        <li>
-          <Link to="/">Home</Link>
-        </li>
-        <li>
-          <Link to="/products">Products</Link>
-        </li>
-        <li>
-          <Link to="/orders">Orders</Link>
-        </li>
-        <li>
-          <Link to="/users">Users</Link>
-        </li>
-        <li>
-          <Link to="/help">Help</Link>
-        </li>
-      </ul>
-    </nav>
-
+    <>
+    {location.pathname === "/" ? <HomeHeader /> : <CommonHeader/>}
     <Switch>
       <Route path="/products">
         <ProductsPage />
@@ -48,7 +33,8 @@ function App() {
         <HomePage />
       </Route>
     </Switch>
-  </div>
+    <Footer />
+    </>
   );
 }
 
