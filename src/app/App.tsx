@@ -1,5 +1,6 @@
 import React from "react";
 import "../css/app.css";
+import "../css/navbar.css"
 import { Box, Button, Container, Stack, Typography } from "@mui/material";
 import { Link, Route, Switch, useLocation } from "react-router-dom";
 import ProductsPage from "./screens/productsPage";
@@ -7,7 +8,7 @@ import OrdersPage from "./screens/ordersPage";
 import UserPage from "./screens/userPage";
 import HomePage from "./screens/homePage";
 import HelpPage from "./screens/helpPage/helpPage";
-import { HomeHeader } from "./components/headers/HomeHeader";
+import { HomeNavbar } from "./components/headers/HomeNavbar";
 import { CommonHeader } from "./components/headers/CommonHeader";
 import { Footer } from "./components/footer/index";
 
@@ -15,7 +16,7 @@ function App() {
   const location = useLocation();
   return (
     <>
-    {location.pathname === "/" ? <HomeHeader /> : <CommonHeader/>}
+    {location.pathname === "/" ? <HomeNavbar /> : <CommonHeader/>}
     <Switch>
       <Route path="/products">
         <ProductsPage />
