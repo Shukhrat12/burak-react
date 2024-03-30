@@ -1,5 +1,6 @@
 import { Box, Button, Container, Stack } from "@mui/material";
 import { NavLink } from "react-router-dom";
+import Basket from "./Basket";
 
 export function HomeNavbar() {
   const authMember = null;
@@ -31,7 +32,7 @@ export function HomeNavbar() {
                   <NavLink to={link.path} activeClassName={"underline"}>{link.text}</NavLink>
                 </Box>
               ))}
-              {/* BASKET */}
+              <Basket />
             
               <Box className={"hover-line"}>
               <NavLink to={"/help"} activeClassName={"underline"}>Help</NavLink>
