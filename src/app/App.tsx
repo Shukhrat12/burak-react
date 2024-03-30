@@ -9,14 +9,14 @@ import UserPage from "./screens/userPage";
 import HomePage from "./screens/homePage";
 import HelpPage from "./screens/helpPage/helpPage";
 import { HomeNavbar } from "./components/headers/HomeNavbar";
-import { CommonHeader } from "./components/headers/CommonHeader";
+import { CommonNavbar } from "./components/headers/CommonNavbar";
 import { Footer } from "./components/footer/index";
 
 function App() {
   const location = useLocation();
   return (
     <>
-    {location.pathname === "/" ? <HomeNavbar /> : <CommonHeader/>}
+    {location.pathname === "/" ? <HomeNavbar /> : <CommonNavbar/>}
     <Switch>
       <Route path="/products">
         <ProductsPage />

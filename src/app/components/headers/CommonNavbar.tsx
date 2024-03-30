@@ -1,3 +1,3 @@
-export function CommonHeader() {
+export function CommonNavbar() {
     return <div>Common Header</div>
 }
