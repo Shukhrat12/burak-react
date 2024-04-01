@@ -5,6 +5,7 @@ import Advertisement from "./Advertisement";
 import Events from "./Events";
 import NewDishes from "./NewDishes";
 import ActiveUsers from "./ActiveUsers";
+import "../../../css/home.css"
 
 function HomePage() {
     return <div className={"homepage"}>
