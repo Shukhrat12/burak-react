@@ -240,3 +240,51 @@
     transform: scale(1.5);
     overflow: hidden;
 }
+
+/** ACTIVE USERS **/
+
+.homepage .active-users-frame {
+    width: 100%;
+    height: 550px;
+    display: flex;
+    background: #f8f8f8;
+}
+
+.homepage .active-users-frame .main {
+    margin-top: 93px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.homepage .active-users-frame .category-title {
+    text-align: center;
+    font-family: "Dancing Script";
+    font-style: normal;
+    font-size: 36px;
+    font-weight: 600;
+    line-height: 43px;
+    letter-spacing: 1.44px;
+    color: #000;
+}
+
+.homepage .active-users-frame .main .cards-frame {
+    width: 100%;
+    margin: 56px 2px 2px 2px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.homepage .active-users-frame .main .card {
+    height: 302px;
+    width: 305px;
+    cursor: pointer;
+}
+
+.homepage .active-users-frame .main .name {
+    text-align: center;
+    font-style: 12px;
+    font-weight: 600;
+    align-items: center;
+}
