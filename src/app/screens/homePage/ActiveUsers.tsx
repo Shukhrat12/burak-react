@@ -1,14 +1,9 @@
 import { Box, Container, Stack } from "@mui/material";
 import { CssVarsProvider } from "@mui/joy/styles";
 import Card from "@mui/joy/Card";
-import CardContent from "@mui/joy/CardContent";
 import CardOverflow from "@mui/joy/CardOverflow";
 import Typography from "@mui/joy/Typography";
-import { CardCover } from "@mui/joy";
-import VisibilityIcon from "@mui/icons-material/Visibility";
-import DescriptionOutlinedIcon from "@mui/icons-material/DescriptionOutlined";
 import AspectRatio from "@mui/joy/AspectRatio";
-import Divider from "../../components/divider"
 
 const userList = [
   { productName: "Martin", imagePath: "/img/martin.webp" },
@@ -45,7 +40,7 @@ function ActiveUsers() {
                   );
                 })
               ) : (
-                <Box className="no-data">New Products are not available!</Box>
+                <Box className="no-data">New Active Users are not available!</Box>
               )}
             </CssVarsProvider>
           </Stack>
