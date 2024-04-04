@@ -2,6 +2,7 @@ import React from "react";
 import "../css/app.css";
 import "../css/navbar.css"
 import "../css/footer.css"
+import "../css/products.css"
 import { Box, Button, Container, Stack, Typography } from "@mui/material";
 import { Link, Route, Switch, useLocation } from "react-router-dom";
 import ProductsPage from "./screens/productsPage";
