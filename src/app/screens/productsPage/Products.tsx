@@ -92,7 +92,7 @@ function Products() {
                         }}
                       >
                         <Box className="product-sale">Normal size </Box>
-                        <Stack className={"hidden"}>
+                        <Stack>
                           <Box>
                             <Button className={"shop-btn"}>
                               <img

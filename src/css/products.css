@@ -186,14 +186,6 @@
   cursor: pointer;
 }
 
-.hidden {
-  opacity: 0;
-}
-
-.hidden:hover {
-  opacity: 1;
-}
-
 .products-page .products .shop-btn {
   position: absolute;
   height: 46px;
