@@ -32,11 +32,12 @@ export function HomeNavbar() {
                   <NavLink to={link.path} activeClassName={"underline"}>{link.text}</NavLink>
                 </Box>
               ))}
-              <Basket />
-            
               <Box className={"hover-line"}>
-              <NavLink to={"/help"} activeClassName={"underline"}>Help</NavLink>
+              <NavLink to={"/help"} activeClassName={"underline"}>
+                Help
+              </NavLink>
             </Box>
+            <Basket />
 
             {!authMember ? (
               <Box>

@@ -8,7 +8,7 @@ import ProductsPage from "./screens/productsPage";
 import OrdersPage from "./screens/ordersPage";
 import UserPage from "./screens/userPage";
 import HomePage from "./screens/homePage";
-import HelpPage from "./screens/helpPage/helpPage";
+import HelpPage from "./screens/helpPage";
 import { HomeNavbar } from "./components/headers/HomeNavbar";
 import { CommonNavbar } from "./components/headers/CommonNavbar";
 import  Footer from "./components/footer/index";
@@ -25,7 +25,7 @@ function App() {
       <Route path="/orders">
         <OrdersPage />
       </Route>
-      <Route path="/users">
+      <Route path="/member-page">
         <UserPage />
       </Route>
       <Route path="/help">
