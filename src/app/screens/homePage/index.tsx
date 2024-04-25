@@ -7,20 +7,25 @@ import ActiveUsers from "./ActiveUsers";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Dispatch } from "@reduxjs/toolkit";
-import { setNewDishes, setPopularDishes } from "./HomePageSlice";
+import { setNewDishes, setPopularDishes, setTopUsers } from "./HomePageSlice";
 import { Product } from "../../../lib/types/product";
 import ProductService from "../../services/ProductService";
 import { ProductCollection } from "../../../lib/enums/product.enum";
 import "../../../css/home.css";
+import MemberService from "../../services/MemberService";
+import { Member } from "../../../lib/types/member";
 
 /** REDUX SLICE & SELECTOR **/
 const actionDispatch = (dispatch: Dispatch) => ({
   setPopularDishes: (data: Product[]) => dispatch(setPopularDishes(data)),
   setNewDishes: (data: Product[]) => dispatch(setNewDishes(data)),
+  setTopUsers: (data: Member[]) => dispatch(setTopUsers(data)),
 });
 
 function HomePage() {
-  const { setPopularDishes, setNewDishes } = actionDispatch(useDispatch());
+  const { setPopularDishes, setNewDishes, setTopUsers } = actionDispatch(
+    useDispatch()
+  );
 
   useEffect(() => {
     const product = new ProductService();
@@ -48,6 +53,14 @@ function HomePage() {
       })
       .catch((error) => console.log("error", error));
   }, []);
+
+  const member = new MemberService();
+  member
+    .getTopUsers()
+    .then((data) => {
+      setTopUsers(data);
+    })
+    .catch((error) => console.log("error", error));
 
   return (
     <div className={"homepage"}>
