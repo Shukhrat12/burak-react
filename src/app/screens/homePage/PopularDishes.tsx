@@ -7,79 +7,88 @@ import Typography from "@mui/joy/Typography";
 import { CardCover } from "@mui/joy";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import DescriptionOutlinedIcon from "@mui/icons-material/DescriptionOutlined";
+import { useSelector } from "react-redux";
+import { createSelector } from "reselect";
+import { retrievePopularDishes } from "./HomePageSelector";
+import { Product } from "../../../lib/types/product";
+import { serverApi } from "../../../lib/config";
 
-const list = [
-  { productName: "Lavash", imagePath: "/img/lavash.webp" },
-  { productName: "Cutlet", imagePath: "/img/cutlet.webp" },
-  { productName: "Kebab", imagePath: "/img/kebab.webp" },
-  { productName: "Kebab", imagePath: "/img/kebab-fresh.webp" },
-];
+const popularDishesRetriever = createSelector(
+  retrievePopularDishes,
+  (popularDishes) => ({ popularDishes })
+);
 
-function PopularDishes() {
+export default function PopularDishes() {
+  const { popularDishes } = useSelector(popularDishesRetriever);
+
+  console.log("popularDishes: ", popularDishes);
+  console.log("IsArray: ", Array.isArray(popularDishes));
+
   return (
     <div className={"popular-dishes-frame"}>
       <Container>
         <Stack className="popular-section">
           <Box className="category-title">Popular Dishes</Box>
           <Stack className="cards-frame">
-            {list.length !== 0 ? (
-            list.map((ele, index) => {
-              return (
-                <CssVarsProvider key={index}>
-                  <Card className={"card"}>
-                    <CardCover>
-                      <img src={ele.imagePath} loading="lazy" alt="" />
-                    </CardCover>
-                    <CardCover className={"card-cover"} />
-                    <CardContent sx={{ justifyContent: "flex-end" }}>
-                      <Stack
-                        flexDirection={"row"}
-                        justifyContent={"space-between"}
+            {popularDishes.length !== 0 ? (
+              popularDishes.map((ele: Product) => {
+                const imagePath = `${serverApi}/${ele.productImages[0]}`;
+                return (
+                  <CssVarsProvider key={ele._id}>
+                    <Card className={"card"}>
+                      <CardCover>
+                        <img src={imagePath} loading="lazy" alt="" />
+                      </CardCover>
+                      <CardCover className={"card-cover"} />
+                      <CardContent sx={{ justifyContent: "flex-end" }}>
+                        <Stack
+                          flexDirection={"row"}
+                          justifyContent={"space-between"}
+                        >
+                          <Typography
+                            level="h2"
+                            fontSize={"lg"}
+                            textColor={"#ffffff"}
+                            mb={1}
+                          >
+                            {ele.productName}
+                          </Typography>
+                          <Typography
+                            sx={{
+                              fontWeight: "md",
+                              color: "neutral.300",
+                              alignItems: "center",
+                              display: "flex",
+                            }}
+                          >
+                            {ele.productViews}
+                            <VisibilityIcon
+                              sx={{ fontSize: 25, marginLeft: " 5px" }}
+                            />
+                          </Typography>
+                        </Stack>
+                      </CardContent>
+                      <CardOverflow
+                        sx={{
+                          display: "flex",
+                          gap: 1.5,
+                          py: 1.5,
+                          px: "var(--Card-padding)",
+                          borderTop: "1px solid",
+                          height: "60px",
+                        }}
                       >
                         <Typography
-                          level="h2"
-                          fontSize={"lg"}
-                          textColor={"#ffffff"}
-                          mb={1}
+                          startDecorator={<DescriptionOutlinedIcon />}
+                          textColor="neutral.300"
                         >
-                          {ele.productName}
+                          {ele.productDesc}
                         </Typography>
-                        <Typography
-                          sx={{
-                            fontWeight: "md",
-                            color: "neutral.300",
-                            alignItems: "center",
-                            display: "flex",
-                          }}
-                        >
-                          20
-                          <VisibilityIcon
-                            sx={{ fontSize: 25, marginLeft: " 5px" }}
-                          />
-                        </Typography>
-                      </Stack>
-                    </CardContent>
-                    <CardOverflow
-                      sx={{
-                        display: "flex",
-                        gap: 1.5,
-                        py: 1.5,
-                        px: "var(--Card-padding)",
-                        borderTop: "1px solid",
-                        height: "60px",
-                      }}
-                    >
-                      <Typography
-                        startDecorator={<DescriptionOutlinedIcon />}
-                        textColor="neutral.300"
-                      >
-                        This is delicious meal
-                      </Typography>
-                    </CardOverflow>
-                  </Card>
-                </CssVarsProvider>
-              );
-            })
+                      </CardOverflow>
+                    </Card>
+                  </CssVarsProvider>
+                );
+              })
             ) : (
               <Box className="no-data">New Products are not available!</Box>
             )}
@@ -89,5 +98,3 @@ function PopularDishes() {
     </div>
   );
 }
-
-export default PopularDishes;
