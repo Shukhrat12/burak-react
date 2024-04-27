@@ -15,19 +15,24 @@ import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import SearchBar from "../../components/search/index";
+import { useSelector } from "react-redux";
+import { retrieveProducts } from "./productsPageSelector";
+import { Dispatch, createSelector } from "@reduxjs/toolkit";
+import { serverApi } from "../../../lib/config";
+import { Product } from "../../../lib/types/product";
+import { setProducts } from "./productsPageSlice";
 
-const products = [
-  { productName: "Beef Cutlet Steak", imagePath: "/img/cutlet.webp" },
-  { productName: "Lola Kebab", imagePath: "/img/kebab-fresh.webp" },
-  { productName: "Checken Kebab", imagePath: "/img/kebab.webp" },
-  { productName: "Chicken Shawarma", imagePath: "/img/lavash.webp" },
-  { productName: "Checken Doner", imagePath: "/img/lavash.webp" },
-  { productName: "Beef Cutlet Steak", imagePath: "/img/cutlet.webp" },
-  { productName: "Tandoori Kebab", imagePath: "/img/kebab.webp" },
-  { productName: "Adana Kebab", imagePath: "/img/kebab.webp" },
-];
+/** REDUX SLICE & SELECTOR **/
+const actionDispatch = (dispatch: Dispatch) => ({
+  setProducts: (data: Product[]) => dispatch(setProducts(data)),
+});
+
+const productsRetriever = createSelector(retrieveProducts, (products) => ({
+  products,
+}));
 
 function Products() {
+  const { products } = useSelector(productsRetriever);
   return (
     <div className="products">
       <Container>
@@ -81,13 +86,14 @@ function Products() {
 
             <Stack className={"product-wrapper"}>
               {products.length !== 0 ? (
-                products.map((ele, index) => {
+                products.map((product: Product) => {
+                  const imagePath = `${serverApi}/${product.productImages[0]}`;
                   return (
-                    <Stack key={index} className={"product-card"}>
+                    <Stack key={product._id} className={"product-card"}>
                       <Stack
                         className={"product-img"}
                         sx={{
-                          backgroundImage: `url(${ele.imagePath})`,
+                          backgroundImage: `url(${imagePath})`,
                           backgroundSize: "cover",
                         }}
                       >
@@ -114,11 +120,11 @@ function Products() {
                       </Stack>
                       <Box className={"product-desc-box"}>
                         <span className={"product-title"}>
-                          {ele.productName}
+                          {product.productName}
                         </span>
                         <div className={"product-desc"}>
                           <MonetizationOnIcon />
-                          {12}
+                          {product.productPrice}
                         </div>
                       </Box>
                     </Stack>
