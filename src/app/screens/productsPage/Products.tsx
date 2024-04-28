@@ -10,17 +10,19 @@ import {
 import Pagination from "@mui/material/Pagination";
 import PaginationItem from "@mui/material/PaginationItem";
 import RemoveRedIcon from "@mui/icons-material/RemoveRedEye";
-import SearchIcon from "@mui/icons-material/Search";
 import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import SearchBar from "../../components/search/index";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { retrieveProducts } from "./productsPageSelector";
 import { Dispatch, createSelector } from "@reduxjs/toolkit";
 import { serverApi } from "../../../lib/config";
 import { Product } from "../../../lib/types/product";
 import { setProducts } from "./productsPageSlice";
+import { useEffect } from "react";
+import ProductService from "../../services/ProductService";
+import { ProductCollection } from "../../../lib/enums/product.enum";
 
 /** REDUX SLICE & SELECTOR **/
 const actionDispatch = (dispatch: Dispatch) => ({
@@ -32,6 +34,22 @@ const productsRetriever = createSelector(retrieveProducts, (products) => ({
 }));
 
 function Products() {
+  const { setProducts } = actionDispatch(useDispatch());
+
+  useEffect(() => {
+    const product = new ProductService();
+    product
+      .getProducts({
+        page: 1,
+        limit: 8,
+        order: "createdAt",
+        productCollection: ProductCollection.DISH,
+        search: "",
+      })
+      .then((data) => setProducts(data))
+      .catch((error) => console.log(error));
+  }, []);
+
   const { products } = useSelector(productsRetriever);
   return (
     <div className="products">
@@ -88,6 +106,10 @@ function Products() {
               {products.length !== 0 ? (
                 products.map((product: Product) => {
                   const imagePath = `${serverApi}/${product.productImages[0]}`;
+                  const sizeVolume =
+                    product.productCollection === ProductCollection.DRINK
+                      ? product.productVolume + " litre"
+                      : product.productSize + " size";
                   return (
                     <Stack key={product._id} className={"product-card"}>
                       <Stack
@@ -97,7 +119,7 @@ function Products() {
                           backgroundSize: "cover",
                         }}
                       >
-                        <Box className="product-sale">Normal size </Box>
+                        <Box className="product-sale">{sizeVolume}</Box>
                         <Stack>
                           <Box>
                             <Button className={"shop-btn"}>
@@ -109,9 +131,9 @@ function Products() {
                           </Box>
                           <Box>
                             <Button className={"view-btn"}>
-                              <Badge badgeContent={20} color="secondary">
+                              <Badge badgeContent={product.productViews} color="secondary">
                                 <RemoveRedIcon
-                                  sx={{ color: 20 ? "grey" : "white" }}
+                                  sx={{ color: product.productViews === 0 ? "grey" : "white" }}
                                 />
                               </Badge>
                             </Button>
