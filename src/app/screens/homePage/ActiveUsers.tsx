@@ -6,8 +6,7 @@ import Typography from "@mui/joy/Typography";
 import AspectRatio from "@mui/joy/AspectRatio";
 import { useSelector } from "react-redux";
 import { createSelector } from "reselect";
-import { retrievePopularDishes, retrieveTopUsers } from "./HomePageSelector";
-import { Product } from "../../../lib/types/product";
+import { retrieveTopUsers } from "./HomePageSelector";
 import { serverApi } from "../../../lib/config";
 import { Member } from "../../../lib/types/member";
 
