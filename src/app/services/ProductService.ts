@@ -25,7 +25,17 @@ class ProductService {
             console.log('Error, getProduct', error);
             throw error;
         }
+    }
 
+    public async getProduct(productId: string): Promise<Product> {
+        try {
+            const url = `${this.path}/product/${productId}`;
+            const result = axios.get(url, { withCredentials: true })
+            return (await result).data
+        } catch (error) {
+            console.log("Error, getProduct: ", error);
+            throw error;
+        }
 
     }
 }
