@@ -24,6 +24,7 @@ import { ChangeEvent, useEffect, useState } from "react";
 import ProductService from "../../services/ProductService";
 import { ProductCollection } from "../../../lib/enums/product.enum";
 import SearchIcon from "@mui/icons-material/Search";
+import { useHistory } from "react-router-dom";
 
 /** REDUX SLICE & SELECTOR **/
 const actionDispatch = (dispatch: Dispatch) => ({
@@ -46,17 +47,24 @@ function Products() {
   });
 
   const [searchText, setsearchText] = useState<string>("");
+  const history = useHistory();
 
   useEffect(() => {
+    console.log("Fetching products with search parameters:", productSearch);
     const product = new ProductService();
     product
       .getProducts(productSearch)
-      .then((data) => setProducts(data))
+      .then((data) => {
+        console.log("Received products data:", data);
+        setProducts(data);
+      })
       .catch((error) => console.log(error));
   }, [productSearch]);
 
   useEffect(() => {
+    console.log("Search text changed:", searchText);
     if (searchText === "") {
+      console.log("Resetting product search...");
       productSearch.search = "";
       setProductSearch({ ...productSearch });
     }
@@ -84,6 +92,11 @@ function Products() {
   const paginationHandler = (e: ChangeEvent<any>, value: number) => {
     productSearch.page = value;
     setProductSearch({ ...productSearch });
+  };
+
+  const chooseDishHandler = (id: string) => {
+    console.log("productId:", id);
+    history.push(`/products/${id}`);
   };
 
   return (
@@ -227,7 +240,11 @@ function Products() {
                       ? product.productVolume + " litre"
                       : product.productSize + " size";
                   return (
-                    <Stack key={product._id} className={"product-card"}>
+                    <Stack
+                      key={product._id}
+                      className={"product-card"}
+                      onClick={() => chooseDishHandler(product._id)}
+                    >
                       <Stack
                         className={"product-img"}
                         sx={{
