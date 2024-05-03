@@ -44,6 +44,7 @@ export default function ChosenProduct() {
   const { productId } = useParams<{ productId: string }>();
   const { setRestaurant, setChosenProduct } = actionDispatch(useDispatch());
   const { chosenProduct } = useSelector(chosenProductRetriever);
+  console.log("chosenProduct: ", chosenProduct);
   const { restaurant } = useSelector(restaurantRetriever);
 
   useEffect(() => {
@@ -62,7 +63,7 @@ export default function ChosenProduct() {
         setRestaurant(data);
       })
       .catch((error) => console.log(error));
-  });
+  }, []);
 
   if (!chosenProduct) return null;
 

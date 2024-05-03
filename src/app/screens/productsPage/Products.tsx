@@ -68,7 +68,7 @@ function Products() {
       productSearch.search = "";
       setProductSearch({ ...productSearch });
     }
-  });
+  }, [searchText]);
 
   /** HANDLERS **/
 
