@@ -1,8 +1,14 @@
 import { Box, Button, Container, Stack } from "@mui/material";
 import { NavLink } from "react-router-dom";
 import Basket from "./Basket";
+import { CartItem } from "../../../lib/types/search";
 
-export function CommonNavbar() {
+interface CommonNavbarProps {
+  cartItems: CartItem[];
+}
+
+export function CommonNavbar(props: CommonNavbarProps) {
+  const {cartItems} = props;
   const authMember = null;
   return (
     <div className="common-navbar">
@@ -38,7 +44,7 @@ export function CommonNavbar() {
                 Help
               </NavLink>
             </Box>
-            <Basket />
+            <Basket cartItems={cartItems} />
             {!authMember ? (
               <Box>
                 <NavLink to={"/login"}>

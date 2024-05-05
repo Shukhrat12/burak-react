@@ -25,6 +25,7 @@ import ProductService from "../../services/ProductService";
 import { ProductCollection } from "../../../lib/enums/product.enum";
 import SearchIcon from "@mui/icons-material/Search";
 import { useHistory } from "react-router-dom";
+import { CartItem } from "../../../lib/types/search";
 
 /** REDUX SLICE & SELECTOR **/
 const actionDispatch = (dispatch: Dispatch) => ({
@@ -35,7 +36,12 @@ const productsRetriever = createSelector(retrieveProducts, (products) => ({
   products,
 }));
 
-function Products() {
+interface ProductsProps {
+  onAdd: (item: CartItem) => void;
+}
+
+function Products(props: ProductsProps) {
+  const { onAdd } = props;
   const { setProducts } = actionDispatch(useDispatch());
   const { products } = useSelector(productsRetriever);
   const [productSearch, setProductSearch] = useState<ProductInquiry>({
@@ -252,34 +258,38 @@ function Products() {
                           backgroundSize: "cover",
                         }}
                       >
-                        <Box className="product-sale">{sizeVolume}</Box>
-                        <Stack>
-                          <Box>
-                            <Button className={"shop-btn"}>
-                              <img
-                                src={"/icons/shopping-cart.svg"}
-                                alt="btn-image"
-                              />
-                            </Button>
-                          </Box>
-                          <Box>
-                            <Button className={"view-btn"}>
-                              <Badge
-                                badgeContent={product.productViews}
-                                color="secondary"
-                              >
-                                <RemoveRedIcon
-                                  sx={{
-                                    color:
-                                      product.productViews === 0
-                                        ? "grey"
-                                        : "white",
-                                  }}
-                                />
-                              </Badge>
-                            </Button>
-                          </Box>
-                        </Stack>
+                        <div className="product-sale">{sizeVolume}</div>
+                        <Button
+                          className={"shop-btn"}
+                          onClick={(e) => {
+                            onAdd({
+                              _id: product._id,
+                              quantity: 1,
+                              name: product.productName,
+                              price: product.productPrice,
+                              image: product.productImages[0]
+                            })
+                            e.stopPropagation();
+                          }}
+                        >
+                          <img
+                            src={"/icons/shopping-cart.svg"}
+                            alt="btn-image"
+                          />
+                        </Button>
+                        <Button className={"view-btn"}>
+                          <Badge
+                            badgeContent={product.productViews}
+                            color="secondary"
+                          >
+                            <RemoveRedIcon
+                              sx={{
+                                color:
+                                  product.productViews === 0 ? "grey" : "white",
+                              }}
+                            />
+                          </Badge>
+                        </Button>
                       </Stack>
                       <Box className={"product-desc-box"}>
                         <span className={"product-title"}>
