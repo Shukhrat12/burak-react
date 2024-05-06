@@ -1,10 +1,11 @@
 export const serverApi: string = `${process.env.REACT_APP_API_URL}`
 
-export const Message = {
+export const Messages = {
     error1: "Something went wrong!",
     error2: "Please login first!",
     error3: "Please fill in all the required fields",
     error4: "Message is empty",
-    error5: "Only images with jpeg, jpg, png formats are allowed!"
+    error5: "Only images with jpeg, jpg, png formats are allowed!",
+    error6: "This field is required"
 }
 
